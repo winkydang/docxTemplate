@@ -12,7 +12,13 @@ from barcode.writer import ImageWriter
 
 # user base64Image: https://github.com/elapouya/python-docx-template/issues/114
 def generator_barcode_image(code):
-    image = barcode.get('code128', code, writer=ImageWriter())
+    # image = barcode.get('code128', code, writer=ImageWriter())
+
+    # 获取 code128 条形码类
+    Code128 = barcode.get_barcode_class('code128')
+    # 创建条形码对象并生成图片
+    image = Code128(code, writer=ImageWriter())
+
     image.save(code, options={'text_distance': 1, 'quiet_zone': 3, 'module_height': 12, 'font_size': 18, })
     return image
 
